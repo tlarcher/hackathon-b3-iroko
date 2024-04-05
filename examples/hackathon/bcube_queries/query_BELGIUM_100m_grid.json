@@ -1,0 +1,54 @@
+{
+  "sendNotification": true,
+  "notificationAddresses": [
+    "maxime.ryckewaert@inria.fr" 
+  ],
+  "format": "SQL_TSV_ZIP", 
+  "sql": "
+  SELECT 
+    PRINTF('%04d-%02d', \"year\", \"month\") AS yearMonth, 
+    GBIF_EEARGCode(
+      100,
+      decimalLatitude,
+      decimalLongitude,
+      COALESCE(coordinateUncertaintyInMeters, 100)
+      ) AS eeaCellCode,
+    decimalLatitude,
+    decimalLongitude,
+    coordinateuncertaintyinmeters,
+    familyKey,
+    family,
+    speciesKey,
+    species,
+    COUNT(*) AS occurrences
+  FROM 
+    occurrence 
+  WHERE 
+    countryCode = 'BE' 
+    AND occurrenceStatus = 'PRESENT' 
+    AND \"year\" >= 2000
+    AND coordinateuncertaintyinmeters < 100
+    AND kingdom = 'Plantae'
+    AND hasCoordinate = TRUE 
+    AND speciesKey IS NOT NULL
+    AND NOT ARRAY_CONTAINS(issue, 'ZERO_COORDINATE')
+    AND NOT ARRAY_CONTAINS(issue, 'COORDINATE_OUT_OF_RANGE')
+    AND NOT ARRAY_CONTAINS(issue, 'COORDINATE_INVALID')
+    AND NOT ARRAY_CONTAINS(issue, 'COUNTRY_COORDINATE_MISMATCH')
+    AND \"month\" IS NOT NULL
+  GROUP BY
+    yearMonth,
+    eeaCellCode,
+    decimalLatitude,
+    decimalLongitude,
+    coordinateuncertaintyinmeters,
+    familyKey,
+    family,
+    speciesKey,
+    species
+  ORDER BY 
+    yearMonth DESC,
+    eeaCellCode ASC,
+    speciesKey ASC;
+    "
+}
