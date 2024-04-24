@@ -35,7 +35,7 @@ Here is a list of the currently available scenarios:
   - [<u>GeoLifeClef2023</u>](examples/kaggle/geolifeclef2023/) : contains dataloaders for the GeoLifeClef2023 dataset (different from the GLC2022 dataloaders). The training and prediction scripts are not provided.
 - [**Ecologists**](examples/ecologists/) : I have a dataset of my own and I want to train a model on it. I want to be able to easily customize the training process and the model architecture.
   - <u>Drop and play</u> : I have an observations file (.csv) and I want to train a model on different environmental variables (rasters, satellite imagery) without having to worry about the data loading.
-  - <u>GBIF datacube</u> : I have a GBIF datacube DOI consisting of girdded obeservations and I want to combine it with pre-extracted image patches and/or rasters to train a model on it. [TODO]
+  - <u>GBIF datacube</u> : I have a GBIF datacube DOI consisting of gridded obeservations and I want to combine it with pre-extracted image patches and/or rasters to train a model on it. [TODO]
   - <u>Custom dataset</u> : I have my own dataset consisting of pre-extracted image patches and/or rasters and I want to train a model on it.
 - [**Inference**](examples/inference/) : I have an observations file (.csv) and I want to predict the presence of species on a given area using a model I trained previously and a selected dataset or a shapefile I would provide.
 
